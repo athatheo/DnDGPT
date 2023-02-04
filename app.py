@@ -6,15 +6,15 @@ import pickle
 
 
 app = Flask(__name__)
-model = pickle.load(open('randomForestRegressor.pkl','rb'))
+from sklearn.ensemble import RandomForestRegressor
+model = RandomForestRegressor(max_depth=2, random_state=0)
+#model = pickle.load(open('randomForestRegressor.pkl','rb'))
 OPENAI_KEY = os.environ['OPENAI_KEY']
 
 
 @app.route('/')
 def home():
-    #return 'Hello World'
     return render_template('home.html')
-    #return render_template('index.html')
 
 @app.route('/predict',methods = ['POST'])
 def predict():
