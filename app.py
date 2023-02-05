@@ -19,12 +19,9 @@ def home():
 
 @app.route('/predict',methods = ['POST'])
 def predict():
-    int_features = [float(x) for x in request.form.values()]
-    final_features = [np.array(int_features)]
-    prediction = call_gpt()
-
-    #output = round(prediction[0], 2)
-    return render_template('home.html', prediction_text="AQI for Jaipur {}".format(prediction[0]))
+    text = [x for x in request.form.values()]
+    prediction = call_gpt(text[0])
+    return render_template('result.html', prediction_text=prediction)
 
 @app.route('/predict_api',methods=['POST'])
 def predict_api():

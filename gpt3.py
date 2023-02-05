@@ -2,11 +2,11 @@ import os
 import openai
 
 
-def call_gpt():
+def call_gpt(text):
   openai.api_key = os.getenv("OPENAI_KEY")
-  return openai.Completion.create(
+  response = openai.Completion.create(
     model="text-ada-001",
-    prompt="What is 5+5",
+    prompt=text,
     max_tokens=20,
-    temperature=0
-  )
+    temperature=0)
+  return response['choices'][0]['text']
