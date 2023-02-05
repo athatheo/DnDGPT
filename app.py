@@ -9,7 +9,8 @@ app = Flask(__name__)
 from sklearn.ensemble import RandomForestRegressor
 model = RandomForestRegressor(max_depth=2, random_state=0)
 #model = pickle.load(open('randomForestRegressor.pkl','rb'))
-OPENAI_KEY = os.environ['OPENAI_KEY']
+# OPENAI_KEY = os.environ['OPENAI_KEY']
+
 
 
 @app.route('/')
