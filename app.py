@@ -10,7 +10,7 @@ from sklearn.ensemble import RandomForestRegressor
 model = RandomForestRegressor(max_depth=2, random_state=0)
 #model = pickle.load(open('randomForestRegressor.pkl','rb'))
 # OPENAI_KEY = os.environ['OPENAI_KEY']
-
+from gpt3 import call_gpt
 
 
 @app.route('/')
@@ -21,8 +21,7 @@ def home():
 def predict():
     int_features = [float(x) for x in request.form.values()]
     final_features = [np.array(int_features)]
-    prediction = model.predict(final_features)
-    print(prediction[0])
+    prediction = call_gpt()
 
     #output = round(prediction[0], 2)
     return render_template('home.html', prediction_text="AQI for Jaipur {}".format(prediction[0]))
