@@ -53,6 +53,8 @@ jobs:
     needs: build
     environment:
       name: 'Production'
+      env:
+        OPENAI_KEY: ${{ secrets.OPENAI_KEY}}
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
@@ -65,6 +67,8 @@ jobs:
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v2
         id: deploy-to-webapp
+        env:
+          OPENAI_KEY: ${{ secrets.OPENAI_KEY}}
         with:
           app-name: 'DnDGPT'
           slot-name: 'Production'
