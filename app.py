@@ -19,9 +19,10 @@ def home():
 
 @app.route('/predict',methods = ['POST'])
 def predict():
-    text = [x for x in request.form.values()]
-    prediction = call_gpt(text[0])
-    return render_template('result.html', prediction_text=prediction)
+    actual_secret = os.environ.get('OPENAI_KEY')
+    #text = [x for x in request.form.values()]
+#    prediction = call_gpt(text[0])
+    return render_template('result.html', prediction_text=actual_secret)
 
 @app.route('/predict_api',methods=['POST'])
 def predict_api():
