@@ -9,4 +9,4 @@ def call_gpt(text):
     prompt=text,
     max_tokens=20,
     temperature=0)
-  return response['choices'][0]['text']
+  return str(response['choices'][0]['text'])
