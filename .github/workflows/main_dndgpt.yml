@@ -25,11 +25,11 @@ jobs:
           python-version: '3.10'
 
       - name: Create and start virtual environment
+        env:
+          OPENAI_KEY: ${{ secrets.OPENAI_KEY }}
         run: |
           python -m venv venv
           source venv/bin/activate
-          echo "export OPENAI_KEY=$OPENAI_KEY" >> venv/bin/activate.sh
-
       
       - name: Install dependencies
         run: pip install -r requirements.txt
