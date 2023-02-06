@@ -3,7 +3,7 @@ import openai
 
 
 def call_gpt(text):
-  openai.api_key = os.getenv("OPENAI_KEY")
+  openai.api_key = os.environ.get("OPENAI_KEY")
   response = openai.Completion.create(
     model="text-ada-001",
     prompt=text,
