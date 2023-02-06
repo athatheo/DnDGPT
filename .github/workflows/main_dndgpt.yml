@@ -25,11 +25,11 @@ jobs:
           python-version: '3.10'
 
       - name: Create and start virtual environment
+        env:
+          OPENAI_KEY: ${{ secrets.OPENAI_KEY }}
         run: |
           python -m venv venv
           source venv/bin/activate
-          echo "export OPENAI_KEY=$OPENAI_KEY" >> venv/bin/activate.sh
-
       
       - name: Install dependencies
         run: pip install -r requirements.txt
@@ -47,22 +47,20 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: build
+    env:
+      OPENAI_KEY: ${{ secrets.OPENAI_KEY }}
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v2
-        env:
-          OPENAI_KEY: ${{ secrets.OPENAI_KEY}}
         with:
           name: python-app
           path: .
           
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v2
-        env:
-          OPENAI_KEY: ${{ secrets.OPENAI_KEY}}
         id: deploy-to-webapp
         with:
           app-name: 'DnDGPT'
