@@ -20,6 +20,8 @@ def home():
 @app.route('/predict',methods = ['POST'])
 def predict():
     actual_secret = os.environ.get('OPENAI_KEY')
+    actual_secret2 = os.environ['OPENAI_KEY']
+    actual_secret3 = os.getenv('OPENAI_KEY')
     #text = [x for x in request.form.values()]
 #    prediction = call_gpt(text[0])
     return render_template('result.html', prediction_text=actual_secret)
