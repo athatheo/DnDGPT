@@ -18,7 +18,7 @@ def home():
 @app.route('/predict',methods = ['POST'])
 def predict():
     print(dict(os.environ))
-    actual_secret = os.environ.get('OPENAI_KEY')
+    actual_secret = os.environ.get('CUSTOMCONNSTR_OPENAI_KEY')
     #actual_secret2 = os.environ['OPENAI_KEY']
     #actual_secret3 = os.getenv('OPENAI_KEY')
     #text = [x for x in request.form.values()]
