@@ -4,7 +4,7 @@ from azure.keyvault.secrets import SecretClient
 from azure.identity import DefaultAzureCredential
 
 
-def call_gpt():
+def call_gpt(text):
   credential = DefaultAzureCredential()
   client = SecretClient(vault_url=f"https://gptsecrets.vault.azure.net", credential=credential)
   secret = client.get_secret('openai-auth')
