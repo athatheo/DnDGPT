@@ -3,15 +3,12 @@ import os
 import numpy as np
 from flask import Flask, request, jsonify, render_template, url_for
 import pickle
-from azure.keyvault.secrets import SecretClient
-from azure.identity import DefaultAzureCredential
+
 
 app = Flask(__name__)
 #model = pickle.load(open('randomForestRegressor.pkl','rb'))
 # OPENAI_KEY = os.environ['OPENAI_KEY']
 from gpt3 import call_gpt
-credential = DefaultAzureCredential()
-client = SecretClient(vault_url=f"https://gptsecrets.vault.azure.net", credential=credential)
 
 
 @app.route('/')
@@ -24,9 +21,7 @@ def predict():
     #actual_secret3 = os.getenv('OPENAI_KEY')
     #text = [x for x in request.form.values()]
 #    prediction = call_gpt(text[0])
-    print(client.get_secret('openai-auth'))
-    print(client.get_secret('OPENAI_KEY'))
-    return render_template('result.html', prediction_text=client.get_secret('openai-auth'))
+    return render_template('result.html', prediction_text=call_gpt())
 
 @app.route('/predict_api',methods=['POST'])
 def predict_api():
