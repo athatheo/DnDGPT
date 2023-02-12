@@ -11,7 +11,26 @@ def call_gpt(text):
   openai.api_key = secret.value
   response = openai.Completion.create(
     model="text-ada-001",
-    prompt=text,
+    prompt="Create AC, HP, and speed for a D&D monster named: "+text,
     max_tokens=20,
     temperature=0)
-  return str(response['choices'][0]['text'])
+  statblock = str(response['choices'][0]['text'])
+  response = openai.Completion.create(
+    model="text-ada-001",
+    prompt="Create Ability Scores for a D&D monster named: "+text,
+    max_tokens=20,
+    temperature=0)
+  statblock = statblock + " " + str(response['choices'][0]['text'])
+  response = openai.Completion.create(
+    model="text-ada-001",
+    prompt="Create Skills, Senses, Languages and CR for a D&D monster named: "+text,
+    max_tokens=20,
+    temperature=0)
+  statblock = statblock + " " + str(response['choices'][0]['text'])
+  response = openai.Completion.create(
+    model="text-ada-001",
+    prompt="Create Actions for a D&D monster named: "+text,
+    max_tokens=20,
+    temperature=0)
+  statblock = statblock + " " + str(response['choices'][0]['text'])
+  return statblock
