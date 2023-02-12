@@ -9,6 +9,7 @@ def call_gpt(text):
   client = SecretClient(vault_url=f"https://gptsecrets.vault.azure.net", credential=credential)
   secret = client.get_secret('openai-auth')
   openai.api_key = secret
+  print(secret)
   response = openai.Completion.create(
     model="text-ada-001",
     prompt=text,
