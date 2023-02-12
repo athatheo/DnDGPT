@@ -25,11 +25,11 @@ jobs:
           python-version: '3.10'
 
       - name: Create and start virtual environment
-        env:
-          OPENAI_KEY: ${{ secrets.OPENAI_KEY }}
         run: |
           python -m venv venv
           source venv/bin/activate
+        env:
+          OPENAI_KEY: ${{ secrets.OPENAI_KEY }}
       
       - name: Install dependencies
         run: pip install -r requirements.txt
@@ -58,6 +58,8 @@ jobs:
         with:
           name: python-app
           path: .
+          OPENAI_KEY: ${{ secrets.OPENAI_KEY }}
+
           
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v2
@@ -66,3 +68,4 @@ jobs:
           app-name: 'DnDGPT'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_59ED01C004A24CF1BE3767579A01DDA8 }}
+          OPENAI_KEY: ${{ secrets.OPENAI_KEY }}

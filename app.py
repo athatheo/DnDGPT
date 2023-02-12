@@ -6,8 +6,6 @@ import pickle
 
 
 app = Flask(__name__)
-from sklearn.ensemble import RandomForestRegressor
-model = RandomForestRegressor(max_depth=2, random_state=0)
 #model = pickle.load(open('randomForestRegressor.pkl','rb'))
 # OPENAI_KEY = os.environ['OPENAI_KEY']
 from gpt3 import call_gpt
@@ -19,10 +17,11 @@ def home():
 
 @app.route('/predict',methods = ['POST'])
 def predict():
-    actual_secret = os.environ.get('OPENAI_KEY')
-    #text = [x for x in request.form.values()]
+    #actual_secret2 = os.environ['OPENAI_KEY']
+    #actual_secret3 = os.getenv('OPENAI_KEY')
+    text = [x for x in request.form.values()]
 #    prediction = call_gpt(text[0])
-    return render_template('result.html', prediction_text=actual_secret)
+    return render_template('result.html', prediction_text=call_gpt(text[0]))
 
 @app.route('/predict_api',methods=['POST'])
 def predict_api():
